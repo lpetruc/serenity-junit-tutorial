@@ -1,11 +1,15 @@
 package serenityswag.authentication;
 
+import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import serenityswag.authentication.actions.LoginActions;
+import serenityswag.inventory.InventoryPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,16 +19,17 @@ public class WhenLoggingOn {
     @Managed
     WebDriver driver;
 
-    @Test
-    public void usersCanLogOnViaTheHomePage() {
-        driver.get("http://saucedemo.com");
+    @Steps
+    LoginActions login;
 
+    InventoryPage inventoryPage;
+
+    @Test
+    public void usersCanLogOnViaTheHomePageWithUIInteractionsSteps()  {
         // Login as a standard user
-        driver.findElement(By.cssSelector("[data-test='username']")).sendKeys("standard_user");
-        driver.findElement(By.cssSelector("[data-test='password']")).sendKeys("secret_sauce");
-        driver.findElement(By.cssSelector("[data-test='login-button']")).click();
+        login.asAStandardUser();
 
         // We should see the product catalog page
-        assertThat(driver.findElement(By.cssSelector(".title")).getText()).isEqualToIgnoringCase("Products");
+        assertThat(inventoryPage.getHeading()).isEqualToIgnoringCase("Products");
     }
 }
