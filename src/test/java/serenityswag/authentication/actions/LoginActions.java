@@ -35,7 +35,7 @@ public class LoginActions extends UIInteractionSteps {
         // Selector By ID
         //find(By.id("user-name")).sendKeys(user.getUsername());
         $("#user-name").sendKeys(user.getUsername());
-        $("#password").sendKeys(user.getPassword());
-        $("#login-button").click();
+        find(By.id("password")).sendKeys(user.getPassword());
+        find(By.name("login-button")).click();
     }
 }
