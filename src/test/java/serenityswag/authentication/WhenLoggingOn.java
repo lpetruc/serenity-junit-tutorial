@@ -26,7 +26,7 @@ public class WhenLoggingOn {
     InventoryPage inventoryPage;
 
     @Test
-    public void usersCanLogOnViaTheHomePageWithUIInteractionsSteps()  {
+    public void usersCanLogOnViaTheHomePage()  {
         // Login as a standard user
         // login.asAStandardUser();
 
