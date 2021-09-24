@@ -4,6 +4,7 @@ import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.By;
 import serenityswag.authentication.User;
+import serenityswag.authentication.ui.LoginForm;
 
 public class LoginActions extends UIInteractionSteps {
 
@@ -31,11 +32,11 @@ public class LoginActions extends UIInteractionSteps {
     public void as(User user) {
         openUrl("https://www.saucedemo.com");
 
-        // Login as a  user
+        // Login as a user
         // Selector By ID
         //find(By.id("user-name")).sendKeys(user.getUsername());
-        $("#user-name").sendKeys(user.getUsername());
-        find(By.id("password")).sendKeys(user.getPassword());
-        find(By.name("login-button")).click();
+        $(LoginForm.USER_NAME).sendKeys(user.getUsername());
+        $(LoginForm.PASSWORD).sendKeys(user.getPassword());
+        $(LoginForm.LOGIN_BUTTON).click();
     }
 }

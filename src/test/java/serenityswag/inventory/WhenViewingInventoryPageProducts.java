@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import serenityswag.authentication.User;
 import serenityswag.authentication.actions.LoginActions;
+import serenityswag.authentication.actions.ViewProductDetailsActions;
 
 import java.util.List;
 
@@ -21,8 +22,12 @@ public class WhenViewingInventoryPageProducts {
     @Managed(driver = "chrome")
     WebDriver driver;
 
+    // @Steps annotation is what tells serenity that this is an actio class.
     @Steps
     LoginActions login;
+
+    @Steps
+    ViewProductDetailsActions viewProductDetails;
 
     InventoryPage inventoryPage;
     InventoryDetailPage inventoryDetailPage;
@@ -73,4 +78,19 @@ public class WhenViewingInventoryPageProducts {
         Serenity.reportThat("The product detail image with correct ALT should be visible",
                 () -> assertThat(inventoryDetailPage.productImageWithAltVaueOf(title).isCurrentlyVisible()));
         }
+
+
+    @Test
+    public void shouldDisplayCorrectProductDetailPage() {
+        login.as(User.STANDARD_USER);
+
+        String firstItemName = inventoryPage.getProductTitles().get(0);
+
+        //inventoryPage.selectProduct(firstItemName);
+        viewProductDetails.forProductWithName(firstItemName);
+
+        assertThat(inventoryDetailPage.getTitle()).isEqualTo(firstItemName);
+
+        inventoryDetailPage.productImageWithAltVaueOf(firstItemName).shouldBeVisible();
+    }
 }
